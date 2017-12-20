@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<title>Clock</title>
+</head>
+
+<body>
+<form name="forme">
+<input type="text" name="clock" />
+</form>
+<script type="text/javascript">
+var a;
+function runTime()
+{
+	clearTimeout(a);
+	var time = new Date();
+	var sc = time.getSeconds();
+	var mn = time.getMinutes();
+	var hr = time.getHours();
+	var now = hr + ":" +mn  + ":" + sc;
+	document.forme.clock.value = now;
+	a = setTimeout("runTime()",1000);	 
+}
+runTime();
+</script>
+
+<form name="myForm">
+<h2>AM : PM cool clock <i class="material-icons" style="font-size:20px;color:#00aaff">query_builder</i></h2>
+<style type="text/css">
+	#myInput {font-size:35px;color:#00aaff;text-shadow:2px 2px 2px blue;  <!-- style by id ==> #myInput -->
+border:3px groove blue;background-color:#aaffaa; width:195px; height:40px}
+</style>
+
+<input id="myInput" type="text" name="myClock" /> <!-- i gave an id ==> "myInput" to connect with CSS style -->
+<script type="text/javascript">
+
+function myRunTime()
+{
+	var time = new Date() <!--gives us a Date object containing the current date and time on the visitor's computer:-->
+	var sec = time.getSeconds() <!--here we extract the seconds components of the current time from our Date object-->
+	var min = time.getMinutes() <!--here we extract the minutes-->
+	var hr = time.getHours()    <!--and here is the hours-->
+	var ampm = " PM " <!--zdes peremennaya [ampm] hranit znachenie (string) " PM " iznachalno (by default) -->
+	
+if (hr < 12){ <!--esli [hr] < 12 to peremennoy [ampm] prisvaivaetsa drugoe znacenie " AM " to est 1 nochi 2nochi, 5utra i tak do 11 -->
+ampm = " AM "
+}
+if (hr > 12){   <!--esli [hr] > 12 to est 13 14 18 20 i do 24 v takom sluchae - -->
+hr -= 12        <!--ot peremennoy [hr] so znacheniem bolshe 12, otnimaem 12 i vozvrashaem i pokazivaem resultat. naprimer 13-12=1chas 22-12=10chasov -->
+}               <!--no, tak kak znachenie peremennoy [hr] vse eshe bolshe 12 to u peremennoy [ampm] sohranyaetsa by default "PM"-->
+if (hr < 10){
+hr = " " + hr   <!--zdes mi k [hr] s levoy storoni dobavlyaem רווח to est | 1| 5| 8| 9|10|12| -->
+}			    <!--ni odna edinichnaya zifra ne prijimaetsa k levoy storone (estetichney viglyadit)-->
+if (min < 10){
+min = "0" + min <!--pochti to je, samoe tolko zifra "0" s levoy storoni |01|05|07|09|10| vmesto |1 |5 |10| (estetichney viglyadit) :)--> 
+}
+if (sec < 10){
+sec = "0" + sec <!--to je samoe s sekundami, vse chto menshe 10 dobavlyaem 0 (estetichney viglyadit) :)-->
+}
+var now = hr + ":" + min + ":" + sec + ampm; <!--zadaem peremennuyu [now] i prisvaivaem ey to kak budut viglyadet chasi(תבנית)==> snachala hr, potom dvoetochie, teper min, opyat dvoetochie, i sec, i v konze znachenie peremennoy [ampm]--> 
+document.myForm.myClock.value = now; 		 <!--teper vse chto hranitsa v peremennoy [now] vsavlyem v okoshko
+	setTimeout("myRunTime()", 1000)          <!-- pohodu zapuskaem sami chasi, esli ya pravilno vihav -->
+}                                            <!--ya tak i ne ponyav zachem var a -->
+myRunTime();  <!-- zapuskaem ==> function myRunTime() -->
+
+</script>
+</body>
+</html>
